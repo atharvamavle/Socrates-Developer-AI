@@ -6,7 +6,7 @@ An AI-powered Socratic tutor built with FastAPI and React that uses OpenAI's GPT
 
 - 🤖 **Socratic Dialogue**: AI generates probing questions instead of direct answers
 - 💬 **Real-time Chat**: Instant responses with token usage tracking
-- 🔍 **NLP Preprocessing**: NLTK tokenization and lemmatization on user input
+- 🔍 **NLP Preprocessing**: The application includes basic NLP preprocessing with custom tokenization and rule-based lemmatization.
 - 📊 **Metadata Display**: Shows word count, sentence count, and token usage
 - 🎨 **Clean UI/UX**: Modern gradient design with responsive chat interface
 - 🚀 **Production-Ready**: Deployed and live with error handling
@@ -16,7 +16,7 @@ An AI-powered Socratic tutor built with FastAPI and React that uses OpenAI's GPT
 ### Backend
 - **Framework**: FastAPI
 - **LLM**: OpenAI GPT-4.1-mini
-- **NLP**: NLTK (tokenization, lemmatization)
+- **NLP**: Custom Python helpers (tokenization, simple lemmatization)
 - **Language**: Python 3.9+
 - **Server**: Uvicorn
 
@@ -256,9 +256,9 @@ You'll get a URL like: `https://project-socrates-developer.vercel.app`
 
 ## Live Application
 
-- **Frontend**: [Deployed Vercel Link]
-- **Backend API**: [Deployed Render Link]
-- **API Documentation**: [Backend URL]/docs
+- **Frontend**: [https://socrates-developer-i3534av8r-atharvas-projects-9572f041.vercel.app/]
+- **Backend API**: [https://socrates-developer-ai-1.onrender.com/docs#/default/dialogue_dialogue_post]
+- **API Documentation**: [https://socrates-developer-ai-1.onrender.com/docs]
 
 ## Useful Commands
 
@@ -318,7 +318,6 @@ Send a user question and receive a Socratic response.
 
 - **FastAPI**: Modern Python web framework for building APIs
 - **OpenAI API**: GPT-4.1-mini for Socratic dialogue generation
-- **NLTK**: Natural Language Toolkit for text processing
 - **React**: JavaScript library for building user interfaces
 - **Vite**: Next generation frontend build tool
 - **Axios**: Promise-based HTTP client for JavaScript
@@ -330,7 +329,7 @@ Send a user question and receive a Socratic response.
 The AI generates probing questions rather than direct answers, encouraging critical thinking and deeper understanding.
 
 ### NLP Preprocessing
-User input is tokenized into words and sentences, then lemmatized to normalize variations of words (e.g., "running" → "run").
+User input is tokenized into words and sentences using simple regex helpers, then lemmatized with lightweight suffix rules to normalize word forms (for example, “plants” → “plant”).
 
 ### Token Tracking
 Display of token usage helps understand API costs and conversation length.
@@ -342,24 +341,19 @@ Comprehensive try/except blocks catch API errors, rate limits, and network issue
 
 Feel free to fork this repository and submit pull requests for any improvements.
 
-## License
-
-MIT License - See LICENSE file for details
-
 ## Author
 
-Your Name
+Atharva Santosh Mavale
 
 ## Contact
 
-For questions or support, contact: pigeon@valearnis.com
+For questions or support, contact: atharvamavale40@gmail.com
 
 ## Acknowledgments
 
 - Valearnis for the assignment
 - OpenAI for GPT-4.1-mini API
 - FastAPI and React communities for excellent frameworks
-- NLTK for NLP preprocessing capabilities
 
 ---
 
