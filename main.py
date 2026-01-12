@@ -4,21 +4,15 @@ from pydantic import BaseModel
 import os
 from dotenv import load_dotenv
 
-import nltk
-from nltk.tokenize import word_tokenize, sent_tokenize
-from nltk.stem import WordNetLemmatizer
-
 from openai import OpenAI
 from fastapi.middleware.cors import CORSMiddleware
+
+import re
 
 # ===== Env & clients =====
 load_dotenv()  # loads OPENAI_API_KEY from .env if present
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
-nltk.download("punkt")
-nltk.download("wordnet")
-lemmatizer = WordNetLemmatizer()
 
 app = FastAPI()
 
@@ -35,6 +29,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # ===== Pydantic models =====
 class DialogueRequest(BaseModel):
     user_input: str
@@ -47,11 +42,41 @@ class DialogueResponse(BaseModel):
     tokens_used: int
 
 
+# ===== Simple NLP helpers (tokenization + lemmatization) =====
+def simple_sent_tokenize(text: str) -> list[str]:
+    """Naive sentence tokenizer based on punctuation."""
+    sentences = re.split(r"[.!?]+", text)
+    return [s.strip() for s in sentences if s.strip()]
+
+
+def simple_word_tokenize(text: str) -> list[str]:
+    """Naive word tokenizer: split on whitespace and strip edge punctuation."""
+    tokens = []
+    for raw in text.split():
+        token = re.sub(r"^[^\w]+|[^\w]+$", "", raw)
+        if token:
+            tokens.append(token)
+    return tokens
+
+
+def simple_lemmatize(word: str) -> str:
+    """Very lightweight lemmatizer for English nouns/verbs."""
+    w = word.lower()
+    # plural -> singular
+    if len(w) > 3 and w.endswith("ies"):
+        return w[:-3] + "y"        # studies -> study
+    if len(w) > 3 and w.endswith("es"):
+        return w[:-2]              # uses -> us (approx)
+    if len(w) > 2 and w.endswith("s"):
+        return w[:-1]              # plants -> plant
+    return w
+
+
 # ===== NLP preprocessing =====
 def preprocess_text(text: str) -> dict:
-    sentences = sent_tokenize(text)
-    words = word_tokenize(text)
-    lemmas = [lemmatizer.lemmatize(w.lower()) for w in words]
+    sentences = simple_sent_tokenize(text)
+    words = simple_word_tokenize(text)
+    lemmas = [simple_lemmatize(w) for w in words]
 
     return {
         "sentence_count": len(sentences),
@@ -79,7 +104,7 @@ def generate_socratic_response(user_input: str, history: list[dict]) -> tuple[st
         messages.append({"role": "user", "content": user_input})
 
         resp = client.chat.completions.create(
-            model="gpt-4.1-mini",  # or gpt-4o-mini / gpt-4o depending on your plan
+            model="gpt-4.1-mini",
             messages=messages,
             max_tokens=256,
         )
@@ -113,4 +138,3 @@ async def dialogue(body: DialogueRequest):
         processed_input=processed_summary,
         tokens_used=tokens,
     )
-
