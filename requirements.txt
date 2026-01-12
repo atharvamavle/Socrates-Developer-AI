@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 fastapi
 uvicorn
 pydantic
 python-dotenv
 nltk
 openai
+=======
+fastapi==0.104.1
+uvicorn==0.24.0
+pydantic==2.5.0
+python-dotenv==1.0.0
+nltk==3.8.1
+openai==1.3.0
+>>>>>>> a4f6002d5e7f4ee0bc3aae514fd4b32c5827f982
