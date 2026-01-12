@@ -256,7 +256,7 @@ You'll get a URL like: `https://project-socrates-developer.vercel.app`
 
 ## Live Application
 
-- **Frontend**: [https://socrates-developer-i3534av8r-atharvas-projects-9572f041.vercel.app/]
+- **Frontend**: [https://socrates-developer-ai.vercel.app/]
 - **Backend API**: [https://socrates-developer-ai-1.onrender.com/docs#/default/dialogue_dialogue_post]
 - **API Documentation**: [https://socrates-developer-ai-1.onrender.com/docs]
 
