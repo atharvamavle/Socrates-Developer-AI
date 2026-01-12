@@ -1,6 +1,6 @@
 # Project Socrates Developer
 
-An AI-powered Socratic tutor built with FastAPI and React that uses OpenAI's GPT-4.1-mini to generate thoughtful, question-based responses to user queries. The application includes NLP preprocessing with NLTK tokenization and lemmatization.
+An AI-powered Socratic tutor built with FastAPI and React that uses OpenAI's GPT-4.1-mini to generate thoughtful, question-based responses to user queries. The application includes NLP preprocessing with custom tokenization and rule-based lemmatization.
 
 ## Features
 
